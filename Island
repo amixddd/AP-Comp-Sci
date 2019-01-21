@@ -1,0 +1,123 @@
+import java.util.Random;
+
+public class Island
+{
+	public Island()
+	{
+		island = new int[10][15];
+		for(int i = 0; i < 10; i++)
+		{
+			for(int j = 0; j < 15; j++)
+			{
+				generator = new Random();
+				if((generator.nextDouble())*100 <= PERCENT_BRIDGES)
+				{
+					int bridgeOrWater = 0;
+					island[i][j] = bridgeOrWater;
+				}
+				else
+				{
+					int bridgeOrWater = -1;
+					island[i][j] = bridgeOrWater;
+				}
+			}
+		}
+		for(int i = 1; i < 9; i++)
+		{
+			for(int j = 1; j < 14; j++)
+				island[i][j] = 0;
+		}
+	}
+	public void printIsland()
+	{
+		for(int i = 0; i < 10; i++)
+		{
+			for(int j = 0; j < 15; j++)
+			{
+				if(island[i][j] == 0)
+				{
+					if(i == 0 || j == 0 || i == 9 || j == 14)
+						System.out.print("B  ");
+					else
+						System.out.print("0  ");
+				}
+				else if(island[i][j] == -1)
+					System.out.print("W  ");
+				else
+				{
+					if(("" + island[i][j]).length() == 1)
+						System.out.print(island[i][j] + "  ");
+					else
+						System.out.print(island[i][j] + " ");
+				}
+			}
+			System.out.println();
+		}
+	}
+	public String moveAbout()
+	{		
+		mRow = generator.nextInt(8)+1;
+		mCol = generator.nextInt(13)+1;
+		island[mRow][mCol] = moves;
+		while(moves <= 50)
+		{
+			int direction = generator.nextInt(4)+1;
+			if(mRow == 0 || mRow == 9 || mCol == 0 || mCol == 14)
+			{
+				if(island[mRow][mCol] == 0)
+				{
+					mouse = "The mouse has escaped on move " + moves;
+					moves = 51;
+				}
+				else
+				{
+					mouse = "The mouse has unfortunately drowned on move " + moves;
+					moves = 51;
+				}
+			}
+			else if(moves == 50)
+			{
+				island[mRow][mCol] = moves;
+				mouse = "The mouse has run out of food and starved on move 50";
+				moves++;
+			}
+			else if(direction == 1)
+			{
+				if(mRow != 0 || mRow != 9 || mCol != 0 || mCol != 14)
+					island[mRow][mCol] = moves;
+				mRow--;
+				moves++;
+			}
+			else if(direction == 2)
+			{
+				if(mRow != 0 || mRow != 9 || mCol != 0 || mCol != 14)
+					island[mRow][mCol] = moves;
+				mCol++;
+				moves++;
+			}
+			else if(direction == 3)
+			{
+				if(mRow != 0 || mRow != 9 || mCol != 0 || mCol != 14)
+					island[mRow][mCol] = moves;
+				mRow++;
+				moves++;
+			}
+			else
+			{
+				if(mRow != 0 || mRow != 9 || mCol != 0 || mCol != 14)
+					island[mRow][mCol] = moves;
+				mCol--;
+				moves++;
+			}
+		}
+		return mouse;
+	} 
+	private static final int PERCENT_BRIDGES = 30;
+	
+	private int[][] island;
+	private int moves;
+	private int mRow;
+	private int mCol;
+	private Random generator;
+	private String mouse;
+}
