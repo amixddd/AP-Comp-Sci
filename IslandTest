@@ -1,0 +1,39 @@
+public class IslandTest
+{
+	public static void main(String[] args)
+	{
+		Island a = new Island();
+		System.out.println(a.moveAbout());
+		a.printIsland();
+		System.out.println();
+		
+		Island b = new Island();
+		System.out.println(b.moveAbout());
+		b.printIsland();
+		System.out.println();
+		
+		Island c = new Island();
+		System.out.println(c.moveAbout());
+		c.printIsland();
+		System.out.println();
+		
+		int escaped = 0;
+		int drowned = 0;
+		int starved = 0;
+		for(int i = 1; i <= 1000; i++)
+		{
+			Island d = new Island();
+			d.moveAbout();
+			if(((d.moveAbout()).charAt(14)) == 'e')
+				escaped++;
+			else if(((d.moveAbout()).charAt(14)) == 'u')
+				drowned++;
+			else
+				starved++;
+		}
+		System.out.println("In 1000 simulations");
+		System.out.println("  percent escaped = " + escaped/10.0);
+		System.out.println("  percent drowned = " + drowned/10.0);
+		System.out.println("  percent starved = " + starved/10.0);
+	}
+}
